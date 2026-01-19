@@ -1,0 +1,7 @@
+{
+  "name": "vilcart-crm-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

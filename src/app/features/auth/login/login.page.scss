@@ -1,0 +1,45 @@
+.login-page {
+  --background: linear-gradient(180deg, #4e8ef7, #1e3c72);
+}
+
+.login-page::part(scroll) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+ion-input {
+  margin-bottom: 16px;
+  --border-radius: 10px;
+  --padding-start: 12px;
+}
+
+.login-btn {
+  margin-top: 10px;
+  --border-radius: 12px;
+  --background: #4e8ef7;
+  --background-hover: #3a78e0;
+}

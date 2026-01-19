@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Verify OTP</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+  
+    <ion-input
+      label="Enter OTP"
+      [(ngModel)]="otp">
+    </ion-input>
+  
+    <ion-text color="danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </ion-text>
+  
+    <ion-button expand="block" (click)="verify()" [disabled]="loading">
+      {{ loading ? 'Verifying...' : 'Verify OTP' }}
+    </ion-button>
+  
+  </ion-content>
+  

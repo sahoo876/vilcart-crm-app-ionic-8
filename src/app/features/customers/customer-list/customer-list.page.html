@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Customers</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="addCustomer()">Add</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let c of customers" (click)="editCustomer(c.id)">
+        <ion-label>
+          <h2>{{ c.name }}</h2>
+          <p>{{ c.mobile }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  

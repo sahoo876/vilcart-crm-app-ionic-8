@@ -1,0 +1,26 @@
+<ion-content class="login-page">
+    <div class="login-container">
+
+        <h1 class="title">VILCART CRM</h1>
+        <p class="subtitle">Login to continue</p>
+
+        <form [formGroup]="form">
+
+            <ion-input label="Email" labelPlacement="floating" formControlName="email">
+            </ion-input>
+
+            <ion-input label="Password" type="password" labelPlacement="floating" formControlName="password">
+            </ion-input>
+
+            <ion-text color="danger" *ngIf="errorMsg">
+                <p>{{ errorMsg }}</p>
+            </ion-text>
+
+            <ion-button expand="block" class="login-btn" (click)="submit()" [disabled]="loading">
+                {{ loading ? 'Please wait...' : 'Login' }}
+            </ion-button>
+
+        </form>
+
+    </div>
+</ion-content>
