@@ -1,0 +1,16 @@
+<ion-item>
+    <ion-input
+      [type]="type"
+      [label]="label"
+      labelPlacement="floating"
+      [formControl]="control"
+      [placeholder]="placeholder">
+    </ion-input>
+  </ion-item>
+  
+  <ion-text color="danger" *ngIf="control?.touched && control?.invalid">
+    <small *ngIf="control.errors?.['required']">
+      {{ label }} is required
+    </small>
+  </ion-text>
+  

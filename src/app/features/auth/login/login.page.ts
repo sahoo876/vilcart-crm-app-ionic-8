@@ -9,7 +9,11 @@ import { OtpModalComponent } from '../otp/otp-modal.component';
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss']
 })
