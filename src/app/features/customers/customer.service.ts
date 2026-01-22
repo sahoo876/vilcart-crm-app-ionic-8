@@ -22,7 +22,11 @@ export class CustomerService {
   }
 
   getPostals(subDistrictId: string) {
-    return this.http.get<any[]>(`${this.baseUrl}/village/allVillages?postalbranchId=${subDistrictId}`);
+    return this.http.get<any[]>(`${this.baseUrl}/postalbranch/allPostalBranches?subdistrictId=${subDistrictId}`);
+  }
+
+  getVillages(postalbranchId: string) {
+    return this.http.get<any[]>(`${this.baseUrl}/village/allVillages?postalbranchId=${postalbranchId}`);
   }
 
   saveCustomer(data: any) {

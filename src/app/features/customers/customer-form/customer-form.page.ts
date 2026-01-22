@@ -9,7 +9,8 @@ import { CustomerService } from '../customer.service';
   standalone: true,
   selector: 'app-customer-form',
   imports: [IonicModule, CommonModule, ReactiveFormsModule],
-  templateUrl: './customer-form.page.html'
+  templateUrl: './customer-form.page.html',
+  styleUrls: ['./customer-form.page.scss']
 })
 export class CustomerFormPage implements OnInit {
 
@@ -46,8 +47,8 @@ export class CustomerFormPage implements OnInit {
       stateId: ['', Validators.required],
       districtId: ['', Validators.required],
       subDistrictId: ['', Validators.required],
-      postalId: ['', Validators.required],
-      villageId: ['', Validators.required],
+      postalbranchId: ['', Validators.required],
+      villagelocalityId: ['', Validators.required],
 
       shopType: [''],
       shopName: ['', Validators.required],
@@ -96,12 +97,15 @@ export class CustomerFormPage implements OnInit {
   onSubDistrictChange() {
     const subDistrictId = this.form.value.subDistrictId;
     this.api.getPostals(subDistrictId).subscribe((res: any) => { 
-        this.postals = res?.village
+        this.postals = res?.postalbranch
     });
   }
 
   onPostalChange() {
-    this.villages = this.postals; // adjust later if your API differs
+    const postalbranchId = this.form.value.postalbranchId;
+    this.api.getVillages(postalbranchId).subscribe((res: any) => { 
+        this.villages = res?.village
+    });
   }
 
   onFileSelect(event: any, field: string) {

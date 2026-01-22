@@ -1,119 +1,189 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{ isEdit ? 'Update' : 'Create' }} Customer</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>{{ isEdit ? 'Update' : 'Create' }} Customer</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="customer-form-page">
+    <div class="form-container">
+        <form [formGroup]="form">
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title> Location Details </ion-card-title>
+                </ion-card-header>
 
-  <form [formGroup]="form">
+                <ion-card-content>
+                    <ion-select label="Select State *" formControlName="stateId" (ionChange)="onStateChange()">
+                        <ion-select-option *ngFor="let s of states" [value]="s.stateId">
+                            {{ s.stateName }}
+                        </ion-select-option>
+                    </ion-select>
 
-    <ion-select label="Select State *"
-      formControlName="stateId"
-      (ionChange)="onStateChange()">
-      <ion-select-option *ngFor="let s of states" [value]="s.stateId">
-        {{ s.stateName }}
-      </ion-select-option>
-    </ion-select>
+                    <ion-select label="Select District *" formControlName="districtId" (ionChange)="onDistrictChange()">
+                        <ion-select-option *ngFor="let d of districts" [value]="d.districtId">
+                            {{ d.districtName }}
+                        </ion-select-option>
+                    </ion-select>
 
-    <ion-select label="Select District *"
-      formControlName="districtId"
-      (ionChange)="onDistrictChange()">
-      <ion-select-option *ngFor="let d of districts" [value]="d.districtId">
-        {{ d.districtName }}
-      </ion-select-option>
-    </ion-select>
+                    <ion-select label="Select Taluk/SubDistrict *" formControlName="subDistrictId"
+                        (ionChange)="onSubDistrictChange()">
+                        <ion-select-option *ngFor="let sd of subDistricts" [value]="sd.subdistrictId">
+                            {{ sd.subDistrictName }}
+                        </ion-select-option>
+                    </ion-select>
 
-    <ion-select label="Select Taluk/SubDistrict *"
-      formControlName="subDistrictId"
-      (ionChange)="onSubDistrictChange()">
-      <ion-select-option *ngFor="let sd of subDistricts" [value]="sd.subdistrictId">
-        {{ sd.subDistrictName }}
-      </ion-select-option>
-    </ion-select>
+                    <ion-select label="Select Postal *" formControlName="postalbranchId" (ionChange)="onPostalChange()">
+                        <ion-select-option *ngFor="let p of postals" [value]="p.postalbranchId">
+                            {{ p.postalBranchName }}
+                        </ion-select-option>
+                    </ion-select>
 
-    <ion-select label="Select Postal *"
-      formControlName="postalId"
-      (ionChange)="onPostalChange()">
-      <ion-select-option *ngFor="let p of postals" [value]="p.id">
-        {{ p.name }}
-      </ion-select-option>
-    </ion-select>
+                    <ion-select label="Select Village *" formControlName="villagelocalityId">
+                        <ion-select-option *ngFor="let v of villages" [value]="v.villagelocalityId">
+                            {{ v.villageLocalityName }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-card-content>
+            </ion-card>
+            <!-- SHOP DETAILS -->
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>Shop & Customer Details</ion-card-title>
+                </ion-card-header>
 
-    <ion-select label="Select Village *"
-      formControlName="villageId">
-      <ion-select-option *ngFor="let v of villages" [value]="v.id">
-        {{ v.name }}
-      </ion-select-option>
-    </ion-select>
+                <ion-card-content>
+                    <ion-input label="Shop Type" formControlName="shopType"></ion-input>
+                    <ion-input label="Shop Name *" formControlName="shopName"></ion-input>
+                    <ion-input label="Customer Name *" formControlName="customerName"></ion-input>
+                    <ion-input type="tel" label="Phone 1 *" formControlName="phone1"></ion-input>
+                    <ion-input type="tel" label="Phone 2" formControlName="phone2"></ion-input>
+                    <ion-input label="PAN" formControlName="pan"></ion-input>
+                    <ion-input label="GST" formControlName="gst"></ion-input>
+                </ion-card-content>
+            </ion-card>
+            <!-- CUSTOMER DETAILS -->
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>Customer Details</ion-card-title>
+                </ion-card-header>
 
-    <ion-input label="Shop Type" formControlName="shopType"></ion-input>
-    <ion-input label="Shop Name *" formControlName="shopName"></ion-input>
-    <ion-input label="Customer Name *" formControlName="customerName"></ion-input>
-    <ion-input type="tel" label="Phone 1 *" formControlName="phone1"></ion-input>
-    <ion-input type="tel" label="Phone 2" formControlName="phone2"></ion-input>
-    <ion-input label="PAN" formControlName="pan"></ion-input>
-    <ion-input label="GST" formControlName="gst"></ion-input>
+                <ion-card-content>
+                    <ion-input label="Customer Local Name" formControlName="customerLocalName"></ion-input>
+                    <ion-input label="Village Local Name" formControlName="villageLocalName"></ion-input>
+                </ion-card-content>
+            </ion-card>
 
-    <ion-input label="Customer Local Name" formControlName="customerLocalName"></ion-input>
-    <ion-input label="Village Local Name" formControlName="villageLocalName"></ion-input>
+            <!-- OTHER DETAILS -->
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title> Other Information </ion-card-title>
+                </ion-card-header>
 
-    <ion-textarea label="Address" formControlName="address"></ion-textarea>
-    <ion-input label="Landmark" formControlName="landmark"></ion-input>
+                <ion-card-content>
+                    <ion-textarea label="Address" formControlName="address"></ion-textarea>
+                    <ion-input label="Landmark" formControlName="landmark"></ion-input>
 
-    <ion-radio-group formControlName="breakTime">
-      <ion-item>
-        <ion-label>Shop Break Time</ion-label>
-        <ion-radio slot="start" value="yes"></ion-radio> Yes
-        <ion-radio slot="start" value="no"></ion-radio> No
-      </ion-item>
-    </ion-radio-group>
+                    <ion-item lines="none">
+                        <ion-label>Shop Break Time</ion-label>
+                    </ion-item>
+                    <ion-radio-group formControlName="breakTime">
+                        <ion-item>
+                            <ion-label>Yes</ion-label>
+                            <ion-radio slot="start" value="yes"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>No</ion-label>
+                            <ion-radio slot="start" value="no"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
 
-    <ion-radio-group formControlName="fridge">
-      <ion-item>
-        <ion-label>Fridge</ion-label>
-        <ion-radio slot="start" value="yes"></ion-radio> Yes
-        <ion-radio slot="start" value="no"></ion-radio> No
-      </ion-item>
-    </ion-radio-group>
+                    <ion-item lines="none">
+                        <ion-label>Fridge Available</ion-label>
+                    </ion-item>
 
-    <ion-input label="Qualification" formControlName="qualification"></ion-input>
+                    <ion-radio-group formControlName="fridge">
+                        <ion-item>
+                            <ion-label>Yes</ion-label>
+                            <ion-radio slot="start" value="yes"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>No</ion-label>
+                            <ion-radio slot="start" value="no"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
 
-    <ion-radio-group formControlName="grade">
-      <ion-item>
-        <ion-label>Grade</ion-label>
-        <ion-radio slot="start" value="A"></ion-radio> A
-        <ion-radio slot="start" value="B"></ion-radio> B
-        <ion-radio slot="start" value="C"></ion-radio> C
-      </ion-item>
-    </ion-radio-group>
+                    <ion-input label="Qualification" formControlName="qualification"></ion-input>
 
-    <ion-input type="number"
-      label="Avg Salary Per Day"
-      formControlName="avgSalary">
-    </ion-input>
+                    <ion-item lines="none">
+                        <ion-label>Grade</ion-label>
+                    </ion-item>
+                    <ion-radio-group formControlName="grade">
+                        <ion-item>
+                            <ion-label>A</ion-label>
+                            <ion-radio slot="start" value="A"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>B</ion-label>
+                            <ion-radio slot="start" value="B"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>C</ion-label>
+                            <ion-radio slot="start" value="C"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
 
-    <ion-radio-group formControlName="smartphoneUser">
-      <ion-item>
-        <ion-label>Smartphone User</ion-label>
-        <ion-radio slot="start" value="yes"></ion-radio> Yes
-        <ion-radio slot="start" value="no"></ion-radio> No
-      </ion-item>
-    </ion-radio-group>
+                    <ion-input type="number" label="Avg Salary Per Day" formControlName="avgSalary">
+                    </ion-input>
 
-    <ion-item>
-      <ion-label>Upload Shop Picture</ion-label>
-      <input type="file" (change)="onFileSelect($event,'shopImage')" />
-    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label>Smartphone User</ion-label>
+                    </ion-item>
+                    <ion-radio-group formControlName="smartphoneUser">
+                        <ion-item>
+                            <ion-label>Yes</ion-label>
+                            <ion-radio slot="start" value="yes"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>No</ion-label>
+                            <ion-radio slot="start" value="no"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                </ion-card-content>
+            </ion-card>
 
-    <ion-item>
-      <ion-label>Upload License</ion-label>
-      <input type="file" (change)="onFileSelect($event,'license')" />
-    </ion-item>
+            <!-- DOCUMENTS -->
+            <ion-card>
+                <ion-header>
+                    <ion-card-title>Documents</ion-card-title>
+                </ion-header>
 
-    <ion-button expand="block" (click)="submit()">
-      {{ isEdit ? 'Update' : 'Submit' }}
-    </ion-button>
+                <ion-card-content>
+                    <ion-item lines="full">
+                        <ion-label>Shop Image</ion-label>
+                        <ion-button fill="outline" slot="end">
+                            Upload
+                            <input type="file" hidden (change)="onFileSelect($event,'shopImage')" />
+                        </ion-button>
+                    </ion-item>
 
-  </form>
+                    <ion-item lines="full">
+                        <ion-label>License</ion-label>
+                        <ion-button fill="outline" slot="end">
+                            Upload
+                            <input type="file" hidden (change)="onFileSelect($event,'license')" />
+                        </ion-button>
+                    </ion-item>
+
+                    <ion-footer>
+                        <ion-toolbar>
+                            <ion-button expand="block" color="primary" (click)="submit()" [disabled]="form.invalid">
+                                {{ isEdit ? 'Update Customer' : 'Save Customer' }}
+                            </ion-button>
+                        </ion-toolbar>
+                    </ion-footer>
+                </ion-card-content>
+            </ion-card>
+
+        </form>
+    </div>
 </ion-content>
