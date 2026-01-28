@@ -1,0 +1,19 @@
+<!-- <ion-app> -->
+
+    <!-- HEADER -->
+    <app-header (menuToggle)="toggleSidebar()"></app-header>
+  
+    <div class="shell-container">
+  
+      <!-- SIDEBAR -->
+    <app-sidebar [class.closed]="!isSidebarOpen" class="sidebar"></app-sidebar>
+  
+      <!-- MAIN CONTENT -->
+      <div class="shell-content">
+        <ion-router-outlet></ion-router-outlet>
+      </div>
+  
+    </div>
+  
+  <!-- </ion-app> -->
+  

@@ -1,0 +1,52 @@
+/* ⛔ Override Ionic default absolute positioning ONLY inside shell */
+// :host ::ng-deep ion-router-outlet {
+//   // position: relative !important;
+//   display: block;
+// }
+
+.shell-container {
+  display: flex;
+  height: calc(100vh - 56px); /* header height */
+  position: relative;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  max-width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* CLOSED STATE (DESKTOP) */
+.sidebar.closed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+/* Main content */
+.shell-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f7f8fa;
+}
+
+/* MOBILE BEHAVIOR */
+@media (max-width: 2560px) {
+  .sidebar {
+    position: absolute;
+    left: 0;
+    top: 56px;
+    height: calc(100vh - 56px);
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar:not(.closed) {
+    transform: translateX(0);
+  }
+}

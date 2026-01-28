@@ -1,11 +1,14 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
         <ion-title>{{ isEdit ? 'Update' : 'Create' }} Customer</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content class="customer-form-page">
-    <div class="form-container">
+    <!-- <div class="form-container"> -->
         <form [formGroup]="form">
             <ion-card>
                 <ion-card-header>
@@ -185,5 +188,5 @@
             </ion-card>
 
         </form>
-    </div>
+    <!-- </div> -->
 </ion-content>

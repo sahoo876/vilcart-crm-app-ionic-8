@@ -1,45 +1,28 @@
-<ion-menu contentId="main-content" type="overlay">
+<div class="sidebar">
+  <ion-list>
 
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Vilcart CRM</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  
-    <ion-content>
-      <ion-list>
-  
-        <ng-container *ngFor="let menu of menuItems">
-  
-          <!-- Parent menu -->
-          <ion-item lines="none" *ngIf="menu.children">
-            <ion-label><strong>{{ menu.title }}</strong></ion-label>
-          </ion-item>
-  
-          <!-- Child menus -->
-          <ion-item
-            *ngFor="let child of menu.children"
-            [routerLink]="child.url"
-            routerDirection="root">
-            <ion-icon [name]="child.icon" slot="start"></ion-icon>
-            <ion-label>{{ child.title }}</ion-label>
-          </ion-item>
-  
-          <!-- Single menu -->
-          <ion-item
-            *ngIf="!menu.children"
-            [routerLink]="menu.url"
-            routerDirection="root">
-            <ion-icon [name]="menu.icon" slot="start"></ion-icon>
-            <ion-label>{{ menu.title }}</ion-label>
-          </ion-item>
-  
-          <ion-item-divider></ion-item-divider>
-  
-        </ng-container>
-  
-      </ion-list>
-    </ion-content>
-  
-  </ion-menu>
-  
+    <ng-container *ngFor="let menu of menuItems">
+
+      <!-- PARENT MENU (NO URL) -->
+      <ion-item
+        lines="none"
+        *ngIf="menu.children">
+        <ion-label>
+          <strong>{{ menu.title }}</strong>
+        </ion-label>
+      </ion-item>
+
+      <!-- CHILD MENUS (WITH URL) -->
+      <ion-item
+        *ngFor="let child of menu.children"
+        [routerLink]="child.url">
+        <ion-icon [name]="child.icon" slot="start"></ion-icon>
+        <ion-label>{{ child.title }}</ion-label>
+      </ion-item>
+
+      <ion-item-divider></ion-item-divider>
+
+    </ng-container>
+
+  </ion-list>
+</div>
