@@ -1,13 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonList, IonItem, IonLabel, IonToolbar, IonHeader, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonMenuButton } from '@ionic/angular/standalone';
-// import { SidebarComponent } from 'src/app/shared/components/sidebar/sidebar.component';
-// import { ShellComponent } from 'src/app/layout/shell.component';
+import { 
+  IonList,
+  IonItem,
+  IonLabel,
+  IonToolbar,
+  IonHeader,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonButton,
+  IonIcon,
+  IonMenuButton
+} from '@ionic/angular/standalone';
+import { CustomerService } from '../customer.service';
 @Component({
   standalone: true,
   imports: [
-    // SidebarComponent,
     CommonModule,
     IonList,
     IonItem,
@@ -26,12 +36,24 @@ import { IonList, IonItem, IonLabel, IonToolbar, IonHeader, IonTitle, IonContent
 })
 export class CustomerListPage {
 
-  customers = [
-    { id: 1, name: 'Ravi Kumar', mobile: '9876543210' },
-    { id: 2, name: 'Suresh Das', mobile: '9123456780' }
-  ];
+  customers: any;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private customerService: CustomerService
+  ) {}
+
+  ionViewWillEnter() {
+    this.getCustomers();
+  }
+
+  getCustomers() {
+    const page = 1;
+    const dc = 'BLRU'
+    this.customerService.getCustomers(page, dc).subscribe((res: any) =>{
+      this.customers = res?.docs
+    });
+  }
 
   addCustomer() {
     this.router.navigate(['/customers/new']);
@@ -40,4 +62,6 @@ export class CustomerListPage {
   editCustomer(id: number) {
     this.router.navigate(['/customers/edit', id]);
   }
+
+
 }

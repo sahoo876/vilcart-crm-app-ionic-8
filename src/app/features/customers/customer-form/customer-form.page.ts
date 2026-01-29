@@ -76,14 +76,14 @@ export class CustomerFormPage implements OnInit {
 
     loadStates() {
         this.api.getStates().subscribe((res: any) => {
-            this.states = res?.state
+          this.states = res?.state
         });
     }
 
     onStateChange() {
         const stateId = this.form.value.stateId;
         this.api.getDistricts(stateId).subscribe((res: any) => {
-            this.districts = res?.district
+          this.districts = res?.district
         });
     }
 

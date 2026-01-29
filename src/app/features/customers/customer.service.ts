@@ -36,4 +36,8 @@ export class CustomerService {
   updateCustomer(id: string, data: any) {
     return this.http.put(`${this.baseUrl}/customers/${id}`, data);
   }
+
+  getCustomers(page: any, dcName: string) {
+    return this.http.post<any[]>(`${this.baseUrl}/customer/page?page=${page}&limit=10&dcName=${dcName}`, [dcName]);
+  }
 }
