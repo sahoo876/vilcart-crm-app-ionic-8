@@ -40,4 +40,11 @@ export class CustomerService {
   getCustomers(page: any, dcName: string) {
     return this.http.post<any[]>(`${this.baseUrl}/customer/page?page=${page}&limit=10&dcName=${dcName}`, [dcName]);
   }
+
+  uploadCustomerDoc(customerId: string, formData: FormData) {
+    return this.http.post(
+      `/api/customers/${customerId}/upload-doc`,
+      formData
+    );
+  }
 }

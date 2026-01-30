@@ -18,7 +18,481 @@
 </ion-header>
 <ion-content >
 
-  <ion-list>
+  <!-- SEARCH -->
+  <mat-form-field appearance="outline" class="search-box">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" />
+  </mat-form-field>
+
+   <!-- TABLE -->
+   <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Sl No -->
+      <ng-container matColumnDef="slNo">
+        <th mat-header-cell *matHeaderCellDef>Sl. No.</th>
+        <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- DOC 1 -->
+      <ng-container matColumnDef="doc1">
+        <th mat-header-cell *matHeaderCellDef>Doc 1</th>
+      
+        <td mat-cell *matCellDef="let row">
+          <div class="doc-cell">
+      
+            <!-- Thumbnail -->
+            <div class="doc-preview" (click)="viewDoc(row.doc1)" *ngIf="row?.doc1">
+              <img [src]="row?.doc1" />
+            </div>
+      
+            <!-- Placeholder -->
+            <div class="doc-preview placeholder" *ngIf="!row?.doc1">
+              <ion-icon name="image-outline"></ion-icon>
+            </div>
+      
+            <!-- Upload / Update -->
+            <ion-button size="small" fill="clear"
+              (click)="openDocModal(row, 'doc1')">
+              {{ row.doc1 ? 'Update' : 'Upload' }}
+            </ion-button>
+      
+          </div>
+        </td>
+      </ng-container>
+      
+      <!-- DOC 2 -->
+      <ng-container matColumnDef="doc2">
+        <th mat-header-cell *matHeaderCellDef>Doc 2</th>
+      
+        <td mat-cell *matCellDef="let row">
+          <div class="doc-cell">
+      
+            <!-- Thumbnail -->
+            <div class="doc-preview" (click)="viewDoc(row.doc2)" *ngIf="row?.doc2">
+              <img [src]="row?.doc2" />
+            </div>
+      
+            <!-- Placeholder -->
+            <div class="doc-preview placeholder" *ngIf="!row?.doc2">
+              <ion-icon name="image-outline"></ion-icon>
+            </div>
+      
+            <!-- Upload / Update -->
+            <ion-button size="small" fill="clear"
+              (click)="openDocModal(row, 'doc2')">
+              {{ row.doc2 ? 'Update' : 'Upload' }}
+            </ion-button>
+      
+          </div>
+        </td>
+      </ng-container>
+      
+      <!-- DOC 3 -->
+      <ng-container matColumnDef="doc3">
+        <th mat-header-cell *matHeaderCellDef>Doc 3</th>
+      
+        <td mat-cell *matCellDef="let row">
+          <div class="doc-cell">
+      
+            <!-- Thumbnail -->
+            <div class="doc-preview" (click)="viewDoc(row.doc3)" *ngIf="row?.doc3">
+              <img [src]="row?.doc3" />
+            </div>
+      
+            <!-- Placeholder -->
+            <div class="doc-preview placeholder" *ngIf="!row?.doc3">
+              <ion-icon name="image-outline"></ion-icon>
+            </div>
+      
+            <!-- Upload / Update -->
+            <ion-button size="small" fill="clear"
+              (click)="openDocModal(row, 'doc3')">
+              {{ row.doc3 ? 'Update' : 'Upload' }}
+            </ion-button>
+      
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- KYC -->
+      <ng-container matColumnDef="kycExpiry">
+        <th mat-header-cell *matHeaderCellDef>KYC Expiry</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button 
+            size="small" 
+            [color]="row.kycExpireOn ? 'primary' : 'success'" 
+            (click)="updateKycExpiry(row)"
+          >
+            {{ row.kycExpireOn ? (row.kycExpireOn | date:'dd-MMM-yyyy') : 'Add' }}
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- Verify -->
+      <ng-container matColumnDef="verify">
+        <th mat-header-cell *matHeaderCellDef>Verify</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-slide-toggle [checked]="row.isVerified"></mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <!-- Verified Doc Type -->
+      <ng-container matColumnDef="Verified Doc Type">
+        <th mat-header-cell *matHeaderCellDef>Verified Doc Type</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.docVerifiedType}}
+        </td>
+      </ng-container>
+
+      <!-- Declaration Verified Doc Type -->
+      <ng-container matColumnDef="Declaration Verified Doc Type">
+        <th mat-header-cell *matHeaderCellDef>Declaration Verified Doc Type</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.declarationDocType}}
+        </td>
+      </ng-container>
+
+      <!-- Survey Status -->
+      <ng-container matColumnDef="Survey Status">
+        <th mat-header-cell *matHeaderCellDef>Survey Status</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.surveyRes}}
+        </td>
+      </ng-container>
+
+      <!-- UUID -->
+      <ng-container matColumnDef="UUID">
+        <th mat-header-cell *matHeaderCellDef>UUID</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.customer_code}}
+        </td>
+      </ng-container>
+
+      <!-- state -->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef>State</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.state}}
+        </td>
+      </ng-container>
+
+       <!-- district -->
+       <ng-container matColumnDef="district">
+        <th mat-header-cell *matHeaderCellDef>District</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.district}}
+        </td>
+      </ng-container>
+
+      <!-- Taluk -->
+      <ng-container matColumnDef="Taluk">
+        <th mat-header-cell *matHeaderCellDef>Taluk</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.taluk}}
+        </td>
+      </ng-container>
+
+      <!-- Office Name -->
+      <ng-container matColumnDef="Office Name">
+        <th mat-header-cell *matHeaderCellDef>Office Name</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.officename}} || {{row?.pincode}}
+        </td>
+      </ng-container>
+
+      <!-- Village -->
+      <ng-container matColumnDef="Village">
+        <th mat-header-cell *matHeaderCellDef>Village</th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.villageName}} <br />
+          {{row.localVillageName ? row.localVillageName : ''}}
+        </td>
+      </ng-container>
+
+      <!-- Name -->
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.name }} <br /> 
+          {{row.localCustomerName ? row.localCustomerName : ''}}
+        </td>
+      </ng-container>
+
+      <!-- Gender -->
+      <ng-container matColumnDef="Gender">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.gender }}
+        </td>
+      </ng-container>
+
+      <!-- Add / View Beat -->
+      <ng-container matColumnDef="Add / View Beat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Add / View Beat</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" *ngIf="!row.beatListName || !row.beatListName.length" (click)="addBeats(row)">
+            Add
+          </ion-button>
+          <ion-button size="small" *ngIf="row.beatListName && row.beatListName.length" (click)="viewAddBeat(row)">
+            View
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- Grade -->
+      <ng-container matColumnDef="Grade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Grade</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.grade }}
+        </td>
+      </ng-container>
+
+      <!-- Team -->
+      <ng-container matColumnDef="Team">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Team</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" *ngIf="!row.teamData" (click)="addTeam(row)">
+            Add Team
+          </ion-button>
+          <ion-button size="small" *ngIf="row.teamData" (click)="addTeam(row)">
+            {{row.teamData?.teamName}}
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- CRM -->
+      <ng-container matColumnDef="CRM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>CRM</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.teamData && row.teamData.crm && row.teamData.crm.displayName ? row.teamData.crm.displayName : row.teamData && row.teamData.crm && row.teamData.crm.name ? row.teamData.crm.name : '' }}
+        </td>
+      </ng-container>
+
+      <!-- TeleCaller -->
+      <ng-container matColumnDef="TeleCaller">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>TeleCaller</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.teamData && row.teamData.telecaller && row.teamData.telecaller.displayName ? row.teamData.telecaller.displayName : row.teamData && row.teamData.telecaller && row.teamData.telecaller.name ? row.teamData.telecaller.name : '' }}
+        </td>
+      </ng-container>
+
+      <!-- Old Balance -->
+      <ng-container matColumnDef="Old Balance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Old Balance</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.oldBalance ? row.oldBalance : '0' }}
+        </td>
+      </ng-container>
+
+      <!-- GST Number -->
+      <ng-container matColumnDef="GST Number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>GST Number</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.gstNumber ? row.gstNumber : '' }}
+        </td>
+      </ng-container>
+
+      <!-- Shop Type -->
+      <ng-container matColumnDef="Shop Type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Shop Type</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.shopType ||''}}
+        </td>
+      </ng-container>
+
+      <!-- Shop Name -->
+      <ng-container matColumnDef="Shop Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Shop Name</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.shopName || ''}}
+        </td>
+      </ng-container>
+
+      <!-- phoneNumber -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>phoneNumber</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.phoneNumber || ''}}
+        </td>
+      </ng-container>
+
+      <!-- phoneNumber2 -->
+      <ng-container matColumnDef="phoneNumber2">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>phoneNumber2</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.phoneNumber2 || ''}}
+        </td>
+      </ng-container>
+
+      <!-- Address -->
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.address || '' }}
+        </td>
+      </ng-container>
+
+      <!-- Landmark -->
+      <ng-container matColumnDef="Landmark">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Landmark</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.landmark || '' }}
+        </td>
+      </ng-container>
+
+      <!-- Shop Break Time -->
+      <ng-container matColumnDef="Shop Break Time">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Shop Break Time</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.breakTime || '' }}
+        </td>
+      </ng-container>
+
+      <!-- Qualification -->
+      <ng-container matColumnDef="Qualification">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Qualification</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.qualification || '' }}
+        </td>
+      </ng-container>
+
+      <!-- Smartphone User -->
+      <ng-container matColumnDef="Smartphone User">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Smartphone User</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.isSmartUser || '' }}
+        </td>
+      </ng-container>
+
+      <!-- Route -->
+      <ng-container matColumnDef="Route">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" (click)="addRoute(row)">
+            {{row.route ? row.route : 'Add Route'}}
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- Created By -->
+      <ng-container matColumnDef="Created By">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" (click)="viewTopItems(row)">
+            View Items
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- View License -->
+      <ng-container matColumnDef="View License">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>View License</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" (click)="viewImage(row)">
+            {{ row.licenseUrl ? 'View License' : 'N/A'}}
+          </ion-button>
+        </td>
+      </ng-container>
+
+      <!-- Executive -->
+      <ng-container matColumnDef="Executive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Executive</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.created_by ? row.created_by.displayName : 'CPK' }}
+        </td>
+      </ng-container>
+
+      <!-- Location Captured -->
+      <ng-container matColumnDef="Location Captured">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Location Captured</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.latitude}} {{row.longitude}}
+        </td>
+      </ng-container>
+
+      <!-- Created On -->
+      <ng-container matColumnDef="Created On">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.created || ''}}
+        </td>
+      </ng-container>
+
+      <!-- Last Called -->
+      <ng-container matColumnDef="Last Called">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Called</th>
+        <td mat-cell *matCellDef="let row" >
+          {{ row.callUpdated ? formatLastCalled(row.lastCalled) : '-' }}
+        </td>
+      </ng-container>
+
+      <!-- Average Sale -->
+      <ng-container matColumnDef="Average Sale">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Average Sale</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.avgSale }}
+        </td>
+      </ng-container>
+
+      <!-- creditPeriod -->
+      <ng-container matColumnDef="creditPeriod">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>creditPeriod</th>
+        <td mat-cell *matCellDef="let row">
+          {{ isDistributor ? row?.creditPeriod : '' }}
+        </td>
+      </ng-container>
+
+      <!-- creditLimit -->
+      <ng-container matColumnDef="creditLimit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>creditLimit</th>
+        <td mat-cell *matCellDef="let row">
+          {{ isDistributor ? row?.creditLimit : '' }}
+        </td>
+      </ng-container>
+
+      <!-- Referral Code -->
+      <ng-container matColumnDef="Referral Code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Referral Code</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.referralCode || '' }}
+        </td>
+      </ng-container>
+
+      <!-- App Version -->
+      <ng-container matColumnDef="App Version">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>App Version</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.appVersion }}
+        </td>
+      </ng-container>
+
+      <!-- App Login -->
+      <ng-container matColumnDef="App Login">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>App Login</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.lastLoggedIn | date: 'DD-MM-yyyy hh:mm A' }}
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <ion-button size="small" fill="clear" (click)="editCustomer(row.id)">Edit</ion-button>
+          <ion-button size="small" color="warning">Migrate</ion-button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <!-- PAGINATION -->
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
+
+  <!-- <ion-list>
     <ion-item
       *ngFor="let c of customers"
       button
@@ -31,6 +505,6 @@
       </ion-label>
 
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
 </ion-content>
