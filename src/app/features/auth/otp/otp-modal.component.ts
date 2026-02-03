@@ -37,8 +37,10 @@ export class OtpModalComponent {
       dcName: this.dcName,
       otp: this.otp
     }).subscribe({
-      next: () => {
+      next: async (res) => {
         this.loading = false;
+        //ADD: store auth data securely
+        await this.auth.handleLoginSuccess(res);
         this.modalCtrl.dismiss({ verified: true });
       },
       error: () => {

@@ -2,6 +2,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { addIcons } from 'ionicons';
 import {
   personAddOutline,
@@ -19,9 +21,15 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
+    // ROUTER
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    // HTTP + INTERCEPTOR
     provideHttpClient(
       withInterceptors([authInterceptor])
+    ),
+    // ADD THIS LINE (Ionic Storage for standalone)
+    importProvidersFrom(
+      IonicStorageModule.forRoot()
     )
   ],
   //  providers: [
