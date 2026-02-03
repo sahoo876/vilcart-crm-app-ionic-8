@@ -9,19 +9,23 @@
   
   <ion-content class="ion-padding">
   
-    <input type="file" (change)="onFileSelect($event)" />
+    <input type="file" (change)="onFileChange($event)" />
   
     <!-- Image Preview -->
     <img *ngIf="previewUrl" [src]="previewUrl" style="width:100%; margin-top:10px" />
   
     <!-- Existing Doc -->
-    <ion-button *ngIf="existingDoc" expand="block" fill="clear"
+    <!-- <ion-button *ngIf="existingDoc" expand="block" fill="clear"
       (click)="window.open(existingDoc)">
       View Existing
-    </ion-button>
+    </ion-button> -->
   
-    <ion-button expand="block" (click)="submit()" [disabled]="!selectedFile">
-      Upload
+    <ion-button
+      expand="block"
+      color="primary"
+      [disabled]="!selectedFile || loading"
+      (click)="upload()">
+      {{ loading ? 'Uploading...' : 'Upload' }}
     </ion-button>
   
   </ion-content>

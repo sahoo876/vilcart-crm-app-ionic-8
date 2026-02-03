@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ModalController } from '@ionic/angular/standalone';
+import { AppStorageService } from 'src/app/core/services/app-storage.service';
 import { DocumentUploadModal } from './document-upload.modal';
 import { CustomerService } from '../customer.service';
 @Component({
@@ -114,16 +115,17 @@ export class CustomerListPage {
   constructor(
     private router: Router,
     private customerService: CustomerService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storageService: AppStorageService
   ) {}
 
   ionViewWillEnter() {
     this.loadCustomers();
   }
 
-  loadCustomers() {
+  async loadCustomers() {
     const page = 1;
-    const dc = 'BLRU'
+    const dc = await this.storageService.get('selectedDC');
     this.customerService.getCustomers(page, dc).subscribe((res: any) =>{
       this.dataSource.data = res.docs;
       this.dataSource.paginator = this.paginator;
@@ -135,9 +137,8 @@ export class CustomerListPage {
     const modal = await this.modalCtrl.create({
       component: DocumentUploadModal,
       componentProps: {
-        customerId: customer._id,
-        docType,
-        existingDoc: customer[docType]
+        customer,
+        docType
       }
     });
 

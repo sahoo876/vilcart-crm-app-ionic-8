@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
 
-  private baseUrl = 'https://beta.vilcartapp.com/v2/api';
+  private baseUrl = 'http://localhost:5000/v2/api';
 
   constructor(private http: HttpClient) {}
 
@@ -33,17 +33,17 @@ export class CustomerService {
     return this.http.post(`${this.baseUrl}/customers`, data);
   }
 
-  updateCustomer(id: string, data: any) {
-    return this.http.put(`${this.baseUrl}/customers/${id}`, data);
-  }
+  // updateCustomer(id: string, data: any) {
+  //   return this.http.put(`${this.baseUrl}/customers/${id}`, data);
+  // }
 
   getCustomers(page: any, dcName: string) {
     return this.http.post<any[]>(`${this.baseUrl}/customer/page?page=${page}&limit=10&dcName=${dcName}`, [dcName]);
   }
 
-  uploadCustomerDoc(customerId: string, formData: FormData) {
-    return this.http.post(
-      `/api/customers/${customerId}/upload-doc`,
+  updateCustomer(formData: FormData) {
+    return this.http.put(
+      `${this.baseUrl}/customer/update`,
       formData
     );
   }

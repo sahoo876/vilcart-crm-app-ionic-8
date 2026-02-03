@@ -140,7 +140,7 @@ export class CustomerFormPage implements OnInit {
     const payload = this.form.value;
 
     if (this.isEdit) {
-      this.api.updateCustomer(this.customerId!, payload)
+      this.api.updateCustomer(payload)
         .subscribe(() => this.router.navigate(['/customers']));
     } else {
       this.api.saveCustomer(payload)
